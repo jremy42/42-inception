@@ -1,0 +1,64 @@
+version: '3.8'
+
+networks:
+     frontend:
+     backend:
+
+volumes:
+  wp:
+    name: wp
+    #driver_opts:
+     # type: none
+     # device: ${PWD}/volumes/wp
+     # o: bind
+  db:
+    name: db
+    #driver_opts:
+     # type: none
+     # device: ${PWD}/volumes/db
+     # o: bind
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    restart: unless-stopped
+    ports: 
+      - "443:443"
+    depends_on:
+      - wordpress
+    networks:
+      - frontend
+    volumes:
+      - wp:/var/www/html
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+    volumes:
+      - db:/var/lib/mysql
+    env_file:
+      - ./.env
+    
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    ports:
+      - "9000:9000"
+    networks:
+      - backend
+      - frontend
+    volumes:
+      - wp:/var/www/html
+    env_file:
+      - ./.env
+  
