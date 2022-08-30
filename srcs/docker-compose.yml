@@ -61,4 +61,60 @@ services:
       - wp:/var/www/html
     env_file:
       - ./.env
+    
+  redis:
+    container_name: redis
+    build: ./bonus/redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+      - frontend
+    env_file:
+      - ./.env
+
+  adminer:
+    container_name: adminer
+    build: ./bonus/adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - nginx
+    networks:
+      - frontend
+      - backend
+  
+  vsftpd:
+    container_name: vsftpd
+    build: ./bonus/vsftpd
+    restart: unless-stopped
+    volumes:
+      - wp:/home/${FTP_USER}
+    ports:
+      - "21:21"
+      - "21000-21100:21000-21100"
+    networks:
+     - frontend
+     - backend
+    env_file:
+      - ./.env
+
+  # vsftps:
+  #   container_name: vsftps
+  #   build: ./bonus/docker-vsftpd
+  #   restart: unless-stopped
+  #   volumes:
+  #     - wp:/home/vsftpd/${FTP_USER}
+  #   ports:
+  #      - 0.0.0.0:20:20
+  #      - 0.0.0.0:21:21
+  #      - 21100-21110:21100-21110
+  #   networks:
+  #    - frontend
+  #    - backend
+  #   env_file:
+  #     - ./.env
+  
   

@@ -6,7 +6,7 @@ detach:
 	docker-compose -f srcs/docker-compose.yml up --build -d
 down:
 	@docker-compose -f srcs/docker-compose.yml down -t 3
-re:
+re: down clean
 	@docker-compose -f srcs/docker-compose.yml up --build
 
 clean:
