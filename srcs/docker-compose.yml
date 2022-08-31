@@ -3,6 +3,7 @@ version: '3.8'
 networks:
      frontend:
      backend:
+     monitor:
 
 volumes:
   wp:
@@ -13,10 +14,18 @@ volumes:
      # o: bind
   db:
     name: db
+  
+  promdata:
+    name: promdata
+
+  prometc:
+    name: prometc
     #driver_opts:
      # type: none
      # device: ${PWD}/volumes/db
      # o: bind
+  grafanadata:
+    name: granafadata
 
 services:
   nginx:
@@ -100,21 +109,43 @@ services:
      - backend
     env_file:
       - ./.env
+    
+  prometheus:
+    container_name: prometheus
+    build: ./bonus/prometheus
+    restart: unless-stopped
+    volumes:
+      - promdata:/prometheus
+      - prometc:/etc/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - nodeexporter
+    networks:
+      - monitor
+    env_file:
+      - ./.env
 
-  # vsftps:
-  #   container_name: vsftps
-  #   build: ./bonus/docker-vsftpd
-  #   restart: unless-stopped
-  #   volumes:
-  #     - wp:/home/vsftpd/${FTP_USER}
-  #   ports:
-  #      - 0.0.0.0:20:20
-  #      - 0.0.0.0:21:21
-  #      - 21100-21110:21100-21110
-  #   networks:
-  #    - frontend
-  #    - backend
-  #   env_file:
-  #     - ./.env
-  
+  nodeexporter:
+    container_name: nodeexporter
+    build: ./bonus/node_exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    networks:
+      - monitor
+
+  grafana:
+    container_name: grafana
+    build: ./bonus/grafana
+    volumes:
+      - grafanadata:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - monitor
   

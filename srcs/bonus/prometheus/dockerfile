@@ -1,0 +1,28 @@
+FROM debian:buster
+
+ENV PROMETHEUS_SHA256 ca70f5a261fd545da0b9893c42a73547a94ebd5111ef2b6b9f8742c5dbb73522
+RUN set -x && \
+    apt-get update && apt-get install -qq -y wget && \
+    mkdir -p /etc/prometheus && \
+    mkdir prometheus-files && cd prometheus-files && \
+    wget -O prometheus.tar.gz "https://github.com/prometheus/prometheus/releases/download/v2.37.0/prometheus-2.37.0.linux-amd64.tar.gz" && \
+    echo "$PROMETHEUS_SHA256 prometheus.tar.gz" | sha256sum -c - && \
+    tar xfvz prometheus.tar.gz --strip-components=1 && \
+    mv prometheus          /bin/ && \
+    mv promtool            /bin/ && \
+    mv prometheus.yml      /etc/prometheus/ && \
+    mv console_libraries   /usr/share/prometheus/ && \
+    mv consoles            /usr/share/prometheus/ && \
+    cd - && \
+    rm -r prometheus-files && \
+    ln -s /usr/share/prometheus/console_libraries /usr/share/prometheus/consoles/ /etc/prometheus && \
+    mkdir -p /prometheus && \
+    chown -R nobody:nogroup /etc/prometheus /prometheus
+
+COPY /conf/prometheus.yml .
+#WORKDIR    /prometheus
+ENTRYPOINT [ "/bin/prometheus" ]
+CMD        [ "--config.file=prometheus.yml", \
+             "--storage.tsdb.path=/prometheus", \
+             "--web.console.libraries=/usr/share/prometheus/console_libraries", \
+             "--web.console.templates=/usr/share/prometheus/consoles" ]
