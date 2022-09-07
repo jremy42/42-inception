@@ -14,16 +14,10 @@ volumes:
      # o: bind
   db:
     name: db
-  
   promdata:
     name: promdata
-
   prometc:
     name: prometc
-    #driver_opts:
-     # type: none
-     # device: ${PWD}/volumes/db
-     # o: bind
   grafanadata:
     name: granafadata
 
@@ -148,4 +142,12 @@ services:
       - "3000:3000"
     networks:
       - monitor
+  
+  snake:
+    container_name: snake
+    build: ./bonus/snake
+    ports:
+      - "4000:4000"
+    networks:
+      - frontend
   

@@ -5,9 +5,6 @@ RUN apt-get update && \
 RUN mkdir -p /var/run/mysqld
 RUN chown -R mysql:root /run/mysqld && chown -R mysql:mysql /var/lib/mysql
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf 
-# COPY ./conf/50-server.cnf /etc/mysql/my.cnf
-# COPY ./conf/50-server.cnf /etc/my.cnf
-# COPY ./conf/50-server.cnf ~/my.cnf
 COPY ./conf/install_db.sh .
 
 ENTRYPOINT [ "bash", "install_db.sh" ]

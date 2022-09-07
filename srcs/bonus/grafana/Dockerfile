@@ -10,7 +10,10 @@ RUN mkdir -p /etc/grafana && \
 	cp /usr/share/grafana/bin/grafana-server /bin && \
 	cp "/usr/share/grafana/conf/sample.ini" "/etc/grafana/grafana.ini" && \
     cp "/usr/share/grafana/conf/ldap.toml" /etc/grafana/ldap.toml && \
-    mkdir -p "/etc/grafana/provisioning/datasources"
-    
-COPY datasource.yml /etc/grafana/provisioning/datasources/.
+    mkdir -p "/etc/grafana/provisioning/datasources" && \
+    mkdir -p "/etc/grafana/provisioning/dashboards"
+
+COPY /provisioning/datasources/* /etc/grafana/provisioning/datasources/.
+COPY /provisioning/dashboards/* /etc/grafana/provisioning/dashboards/.
+
 ENTRYPOINT ["grafana-server", "--homepath=/usr/share/grafana", "--config=/etc/grafana/grafana.ini", "cfg:default.paths.data=/var/lib/grafana","cfg:default.paths.provisioning=/etc/grafana/provisioning"]

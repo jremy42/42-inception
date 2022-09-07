@@ -7,7 +7,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         echo -e "\e[1;32m connect to database ok"
         mkdir -p /var/www/html
         echo -e "\e[1;32m Dir /var/www/html create"
-        #mv var/tmp/wp-config.php var/www/html/wp-config.php
         echo -e "\e[1;32m mv config wp-config.php"
         wp core download --path="/var/www/html" --locale=fr_FR --skip-content --allow-root ;
         echo -e "\e[1;32m Download wp done"
