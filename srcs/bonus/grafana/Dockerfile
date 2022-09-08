@@ -13,7 +13,7 @@ RUN mkdir -p /etc/grafana && \
     mkdir -p "/etc/grafana/provisioning/datasources" && \
     mkdir -p "/etc/grafana/provisioning/dashboards"
 
-COPY /provisioning/datasources/* /etc/grafana/provisioning/datasources/.
-COPY /provisioning/dashboards/* /etc/grafana/provisioning/dashboards/.
+COPY /provisioning/datasources/* /etc/grafana/provisioning/datasources/
+COPY /provisioning/dashboards/* /etc/grafana/provisioning/dashboards/
 
 ENTRYPOINT ["grafana-server", "--homepath=/usr/share/grafana", "--config=/etc/grafana/grafana.ini", "cfg:default.paths.data=/var/lib/grafana","cfg:default.paths.provisioning=/etc/grafana/provisioning"]

@@ -19,7 +19,7 @@ volumes:
   prometc:
     name: prometc
   grafanadata:
-    name: granafadata
+    name: grafanadata
 
 services:
   nginx:
