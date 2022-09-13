@@ -8,10 +8,6 @@ networks:
 volumes:
   wp:
     name: wp
-    #driver_opts:
-     # type: none
-     # device: ${PWD}/volumes/wp
-     # o: bind
   db:
     name: db
   promdata:

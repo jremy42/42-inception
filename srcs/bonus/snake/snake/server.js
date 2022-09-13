@@ -8,9 +8,13 @@ app.set('view engine', 'ejs')
 app.get('/', (request, response) => {
     response.render('public/index');
 })
-app.get('/style.css', (request, response) => {
-    response.render('public/style.css');
+
+app.get('/snake', (request, response) => {
+    response.render('public/index');
 })
 
+app.get('*', (request, response) => {
+    response.render('public/index');
+})
 
 app.listen(4000);
