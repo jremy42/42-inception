@@ -35,8 +35,6 @@ services:
     container_name: mariadb
     build: ./requirements/mariadb
     restart: unless-stopped
-    ports:
-      - "3306:3306"
     networks:
       - backend
     volumes:
@@ -51,8 +49,6 @@ services:
     restart: unless-stopped
     depends_on:
       - mariadb
-    ports:
-      - "9000:9000"
     networks:
       - backend
       - frontend
@@ -65,8 +61,6 @@ services:
     container_name: redis
     build: ./bonus/redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
     networks:
       - backend
       - frontend
@@ -77,8 +71,6 @@ services:
     container_name: adminer
     build: ./bonus/adminer
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     depends_on:
       - nginx
     networks:
@@ -107,8 +99,6 @@ services:
     volumes:
       - promdata:/prometheus
       - prometc:/etc/prometheus
-    ports:
-      - "9090:9090"
     depends_on:
       - nodeexporter
     networks:
@@ -124,8 +114,6 @@ services:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     restart: unless-stopped
-    ports:
-      - "9100:9100"
     networks:
       - monitor
 
@@ -142,8 +130,6 @@ services:
   snake:
     container_name: snake
     build: ./bonus/snake
-    ports:
-      - "4000:4000"
     networks:
       - frontend
   
