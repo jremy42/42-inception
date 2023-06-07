@@ -22,12 +22,13 @@
 </div>
    
 ## 📍 Overview
-   
-In this project, I utilized Docker to create a service infrastructure consisting of NGINX, MariaDB, and WordPress. Additionally, I integrated Grafana, Prometheus, and Node Exporter for monitoring the performance of the infrastructure. I employed Docker Compose and followed containerization best practices to successfully complete this project.
 ---
+   
+   In this project, I utilized Docker to create a service infrastructure consisting of NGINX, MariaDB, and WordPress. Additionally, I integrated Grafana, Prometheus, and Node Exporter for monitoring the performance of the infrastructure. I employed Docker Compose and followed containerization best practices to successfully complete this project.
+   
 
 ## 💫 Features
-
+---
 - nginx: Reverse proxy server that acts as the entry point for the infrastructure, handling requests on port 443 and forwarding them to the appropriate services.
 
 - mariadb: Container for MariaDB, a relational database management system used for storing data in the WordPress application.
