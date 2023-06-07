@@ -79,7 +79,7 @@ make
 http://localhost:80
   
 ---
-### 🤖 Stack docker
+### 🤖 Docker stack
 
 <p align="center">
   <img src="./docker_stack.png" width="100%">
