@@ -8,7 +8,7 @@
 42-inception <a href="https://github.com/JaeSeoKim/badge42"><a href="https://github.com/JaeSeoKim/badge42"><img src="https://badge42.vercel.app/api/v2/cl27cprhd001109mercwbbu5l/project/2693015" alt="jremy's 42 Inception Score" /></a>
 
 </h1>
-<h3 align="center">📍Dockerized Service Infrastructure Setup/h3>
+<h3 align="center">📍Dockerized Service Infrastructure Setup</h3>
 <h3 align="center">⚙️ Developed with the software and tools below:</h3>
 
 <p align="center">
